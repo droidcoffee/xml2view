@@ -8,9 +8,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import droid.frame.utils.Log;
 import droid.frame.utils.xml.parser.XmlParser;
-import droid.from.xml2view.LinearLayout;
 
 public class MainActivity extends Activity {
 
@@ -24,9 +24,8 @@ public class MainActivity extends Activity {
 			Field[] fields = layout.getClass().getFields();
 			fields = layout.getClass().getDeclaredFields();
 			Log.d("layout", fields);
-
 			InputStream in = getAssets().open("main.xml");
-			layout = new XmlParser(in, this).pullerT(LinearLayout.class);
+			layout = (LinearLayout) new XmlParser(in, this).puller2View();
 			Log.d("layout", layout);
 			layout.invalidate();
 			setContentView(layout);

@@ -2,8 +2,11 @@ package droid.frame.utils.xml.parser;
 
 import java.lang.reflect.Field;
 
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import droid.frame.utils.TUtils;
-import droid.frame.utils.annotation.Bean;
 import droid.frame.utils.annotation.Column;
 
 /**
@@ -17,17 +20,11 @@ public class TXmlUtils extends TUtils {
 	 * @param elemName
 	 * @return
 	 */
-	public static boolean isRootElement(Class<?> clazz, String elemName) {
-		Bean root = clazz.getAnnotation(Bean.class);
-		if (root != null) {
-			if (elemName.equals(root.name()) || elemName.equals(root.xml())) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		// 如果没有Bean注解，则继续。。
-		if (clazz.getSimpleName().equalsIgnoreCase(elemName)) {
+	public static boolean isRootElement(String elemName) {
+		if (LinearLayout.class.getSimpleName().equals(elemName) || //
+				RelativeLayout.class.getSimpleName().equals(elemName) || //
+				FrameLayout.class.getSimpleName().equals(elemName) || //
+				TableLayout.class.getSimpleName().equals(elemName)) {
 			return true;
 		}
 		return false;
@@ -48,7 +45,7 @@ public class TXmlUtils extends TUtils {
 				if (xmlElem != null) {
 					if (!"".equals(xmlElem.xml()) && elemName.equals(xmlElem.xml())) {
 						return true;
-					} else if(!"".equals(xmlElem.name()) && elemName.equals(xmlElem.name())){
+					} else if (!"".equals(xmlElem.name()) && elemName.equals(xmlElem.name())) {
 						return true;
 					}
 				}// 如果没有注解， 则直接返回elem
