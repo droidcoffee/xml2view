@@ -1,4 +1,4 @@
-package droid.from.xml2view;
+package droid.frame.xml2view;
 
 
 public interface Xml2View {

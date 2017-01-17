@@ -14,7 +14,7 @@ import android.util.Xml;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import droid.from.xml2view.XmlFactory;
+import droid.frame.xml2view.XmlFactory;
 
 public class XmlParser extends TXmlUtils {
 
