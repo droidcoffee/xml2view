@@ -14,9 +14,8 @@ import android.util.Xml;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import droid.frame.xml2view.XmlFactory;
 
-public class XmlParser extends TXmlUtils {
+public class XmlParser {
 
 	/**
 	 * 每次parser只有一个全局的对象
@@ -97,7 +96,7 @@ public class XmlParser extends TXmlUtils {
 				case XmlPullParser.START_TAG:// 2
 					View currentView = null;
 					// Class级别
-					if (TXmlUtils.isRootElement(tagName)) {
+					if (XmlUtils.isRootElement(tagName)) {
 						ViewGroup parent = XmlFactory.createViewGroup(tagName, context);
 						this.viewParents.add(parent);
 						currentView = parent;// set current
@@ -122,7 +121,7 @@ public class XmlParser extends TXmlUtils {
 					XmlFactory.applyProperties(currentView, attrs);
 					break;
 				case XmlPullParser.END_TAG:// 3
-					if (TXmlUtils.isRootElement(tagName)) {
+					if (XmlUtils.isRootElement(tagName)) {
 						rootLayout = this.viewParents.peek();
 						this.viewParents.pop();
 					}

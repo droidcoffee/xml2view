@@ -1,4 +1,4 @@
-package droid.frame.xml2view;
+package droid.frame.utils.xml.parser;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +18,15 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+/**
+ * 区分几个变量 <br>
+ * xmlAttrName, xmlAttrValue, viewAttrName <br>
+ * 服务器端返回的xml元素的name以及value 比如说layout_width="wrap_conntent", 也可能是lw="wc"<br>
+ * viewAttrName是view控件的属性名,比如说layout_width
+ * 
+ * @author coffee <br>
+ *         2017-1-17 下午8:46:53
+ */
 public class XmlFactory {
 
 	private static boolean test = true;
@@ -27,19 +36,21 @@ public class XmlFactory {
 	 * <LinearLayout layout_width="wrap_content" <br>
 	 * <L a="-2"
 	 */
-	private static HashMap<String, String> namesMap = new HashMap<>();
+	private static HashMap<String, String> supportAttrs = new HashMap<>();
 
 	// *********** 以下是目前支持的属性***************
 	private final static String layout_width = "layout_width";
 	private final static String layout_height = "layout_height";
-	private final static String background = "background";
+	private final static String backgroud = "backgroud";
 	static {
 		if (test) {
-			namesMap.put(layout_width, "layout_width");
-			namesMap.put(layout_height, "layout_height");
+			supportAttrs.put(layout_width, "layout_width");
+			supportAttrs.put(layout_height, "layout_height");
+			supportAttrs.put(backgroud, "backgroud");
 		} else {
-			namesMap.put(layout_width, "lw");
-			namesMap.put(layout_width, "lh");
+			supportAttrs.put(layout_width, "lw");
+			supportAttrs.put(layout_width, "lh");
+			supportAttrs.put(backgroud, "bg");
 		}
 	}
 
@@ -71,21 +82,20 @@ public class XmlFactory {
 		return child;
 	}
 
-	public static void applyProperties(View view, HashMap<String, String> attrsMap) {
-		if (attrsMap == null || attrsMap.isEmpty()) {
+	public static void applyProperties(View view, HashMap<String, String> xmlAttrsMap) {
+		if (xmlAttrsMap == null || xmlAttrsMap.isEmpty()) {
 			return;
 		}
-		Set<String> names = attrsMap.keySet();
+		// xml layout 文件里View的属性
+		Set<String> names = xmlAttrsMap.keySet();
+		// 先处理通用属性, 然后根据View类型处理各自不同的字段
 		for (Iterator<String> it = names.iterator(); it.hasNext();) {
 			String xmlAttrName = it.next();
-			String xmlAttrValue = attrsMap.get(xmlAttrName);
-			String viewAttrName = namesMap.get(xmlAttrName);
+			String viewAttrName = supportAttrs.get(xmlAttrName);
 			// handle layout params
 			if (isEquals(layout_width, viewAttrName)) {
-				int width = getIntValue(xmlAttrValue);
-				String viewLayoutHeight = attrsMap.get(namesMap.get(layout_height));
-				int height = getIntValue(viewLayoutHeight);
-
+				int width = getIntValue(layout_width, xmlAttrsMap);
+				int height = getIntValue(layout_height, xmlAttrsMap);
 				if (view.getLayoutParams() == null) {
 					LayoutParams params = new LayoutParams(width, height);
 					view.setLayoutParams(params);
@@ -99,29 +109,45 @@ public class XmlFactory {
 				it.remove();
 			} else if (isEquals(layout_height, viewAttrName)) {
 				continue;// width的时候已经处理过
+			} else if (isEquals(backgroud, viewAttrName)) {
+				// 然后调用invalidate
+				int backroundColor = getColorIntValue(backgroud, xmlAttrsMap);
+				view.setBackgroundColor(backroundColor);
 			}
 
-		}
-		// 然后调用invalidate
-		// int backroundColor = getColorIntValue(attrs.get("backgroud"));
-		// view.setBackgroundColor(backroundColor);
-
-		if (view instanceof TextView) {
-			((TextView) view).setText("hello xxx");
+			if (view instanceof TextView) {
+				((TextView) view).setText("hello xxx");
+			}
 		}
 	}
 
-	private static int getIntValue(String arrtibuteValue) {
-		if ("wrap_content".equals(arrtibuteValue)) {
+	private static String getXmlAttrValue(String viewAttrName, HashMap<String, String> xmlAttrsMap) {
+		String xmlAttrName = supportAttrs.get(viewAttrName);
+		String xmlAttrValue = xmlAttrsMap.get(xmlAttrName);
+		return xmlAttrValue;
+	}
+
+	private static int getIntValue(String viewAttrName, HashMap<String, String> xmlAttrsMap) {
+		String xmlAttrValue = getXmlAttrValue(viewAttrName, xmlAttrsMap);
+		if ("wrap_content".equals(xmlAttrValue)) {
 			return LayoutParams.WRAP_CONTENT;
-		} else if ("match_parent".equals(arrtibuteValue)) {
+		} else if ("match_parent".equals(xmlAttrValue)) {
 			return LayoutParams.MATCH_PARENT;
+		} else if (xmlAttrValue.endsWith("dp") || xmlAttrValue.endsWith("dip") || xmlAttrValue.endsWith("sp")) {
+			String tmp = xmlAttrValue.replace("dp", "").replace("dip", "").replace("sp", "");
+			int value = Integer.valueOf(tmp);
+			return value * 2;
+		} else if (xmlAttrValue.endsWith("px")) {
+			String tmp = xmlAttrValue.replace("px", "");
+			int value = Integer.valueOf(tmp);
+			return value;
 		}
 		return 0;
 	}
 
-	private static int getColorIntValue(String arrtibuteValue) {
-		return Color.parseColor(arrtibuteValue);
+	private static int getColorIntValue(String viewAttrName, HashMap<String, String> xmlAttrsMap) {
+		String xmlAttrValue = getXmlAttrValue(viewAttrName, xmlAttrsMap);
+		return Color.parseColor(xmlAttrValue);
 	}
 
 	/**
@@ -133,6 +159,6 @@ public class XmlFactory {
 	 * @return
 	 */
 	private static boolean isEquals(String viewAttrName, String xmlAttrName) {
-		return xmlAttrName.equals(namesMap.get(viewAttrName));
+		return xmlAttrName != null && xmlAttrName.equals(supportAttrs.get(viewAttrName));
 	}
 }

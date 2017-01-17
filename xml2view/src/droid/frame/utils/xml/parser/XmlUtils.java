@@ -6,13 +6,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
-import droid.frame.utils.TUtils;
 import droid.frame.utils.annotation.Column;
 
 /**
  * 该方法是基于注解的
  */
-public class TXmlUtils extends TUtils {
+public class XmlUtils  {
 	/**
 	 * 判断节点是否是Root元素; 对应的是class级别的
 	 * 
