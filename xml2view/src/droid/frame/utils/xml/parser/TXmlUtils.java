@@ -11,7 +11,7 @@ import droid.frame.utils.annotation.Column;
 /**
  * 该方法是基于注解的
  */
-public class XmlUtils  {
+public class TXmlUtils  {
 	/**
 	 * 判断节点是否是Root元素; 对应的是class级别的
 	 * 

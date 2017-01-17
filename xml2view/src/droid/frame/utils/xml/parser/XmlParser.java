@@ -96,7 +96,7 @@ public class XmlParser {
 				case XmlPullParser.START_TAG:// 2
 					View currentView = null;
 					// Class级别
-					if (XmlUtils.isRootElement(tagName)) {
+					if (TXmlUtils.isRootElement(tagName)) {
 						ViewGroup parent = XmlFactory.createViewGroup(tagName, context);
 						this.viewParents.add(parent);
 						currentView = parent;// set current
@@ -121,7 +121,7 @@ public class XmlParser {
 					XmlFactory.applyProperties(currentView, attrs);
 					break;
 				case XmlPullParser.END_TAG:// 3
-					if (XmlUtils.isRootElement(tagName)) {
+					if (TXmlUtils.isRootElement(tagName)) {
 						rootLayout = this.viewParents.peek();
 						this.viewParents.pop();
 					}
