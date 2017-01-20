@@ -1,4 +1,4 @@
-package droid.frame.utils.xml.parser;
+package droid.frame.utils.xml2view;
 
 import java.util.HashMap;
 import java.util.Iterator;

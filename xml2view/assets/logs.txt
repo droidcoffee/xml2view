@@ -1,0 +1,43 @@
+
+01-18 00:00:19.786: W/System.err(6284): java.lang.ClassNotFoundException: Didn't find class "droid.frame.class1dex.ViewAction" on path: DexPathList[[zip file "/data/user/0/com.example.xml2view/app_dex/class1dex.jar"],nativeLibraryDirectories=[/vendor/lib64, /system/lib64]]
+01-18 00:00:19.791: W/System.err(6284): 	at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:56)
+01-18 00:00:19.791: W/System.err(6284): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:511)
+01-18 00:00:19.791: W/System.err(6284): 	at java.lang.ClassLoader.loadClass(ClassLoader.java:469)
+01-18 00:00:19.791: W/System.err(6284): 	at com.example.xml2view.MainActivity.loadJarInAccets(MainActivity.java:84)
+01-18 00:00:19.791: W/System.err(6284): 	at com.example.xml2view.MainActivity.onCreate(MainActivity.java:43)
+01-18 00:00:19.791: W/System.err(6284): 	at android.app.Activity.performCreate(Activity.java:6367)
+01-18 00:00:19.791: W/System.err(6284): 	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1110)
+01-18 00:00:19.792: W/System.err(6284): 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2397)
+01-18 00:00:19.792: W/System.err(6284): 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2504)
+01-18 00:00:19.792: W/System.err(6284): 	at android.app.ActivityThread.access$900(ActivityThread.java:165)
+01-18 00:00:19.792: W/System.err(6284): 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1368)
+01-18 00:00:19.792: W/System.err(6284): 	at android.os.Handler.dispatchMessage(Handler.java:102)
+01-18 00:00:19.792: W/System.err(6284): 	at android.os.Looper.loop(Looper.java:150)
+01-18 00:00:19.792: W/System.err(6284): 	at android.app.ActivityThread.main(ActivityThread.java:5546)
+01-18 00:00:19.792: W/System.err(6284): 	at java.lang.reflect.Method.invoke(Native Method)
+01-18 00:00:19.792: W/System.err(6284): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:794)
+01-18 00:00:19.792: W/System.err(6284): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:684)
+01-18 00:00:19.792: W/System.err(6284): 	Suppressed: java.io.IOException: No original dex files found for dex location /data/user/0/com.example.xml2view/app_dex/class1dex.jar
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexFile.openDexFileNative(Native Method)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexFile.openDexFile(DexFile.java:303)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexFile.<init>(DexFile.java:115)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexFile.loadDex(DexFile.java:155)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexPathList.loadDexFile(DexPathList.java:287)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexPathList.makePathElements(DexPathList.java:253)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexPathList.<init>(DexPathList.java:120)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.BaseDexClassLoader.<init>(BaseDexClassLoader.java:48)
+01-18 00:00:19.793: W/System.err(6284): 		at dalvik.system.DexClassLoader.<init>(DexClassLoader.java:57)
+01-18 00:00:19.793: W/System.err(6284): 		at com.example.xml2view.MainActivity.loadJarInAccets(MainActivity.java:83)
+01-18 00:00:19.793: W/System.err(6284): 		... 13 more
+01-18 00:00:19.793: W/System.err(6284): 	Suppressed: java.lang.ClassNotFoundException: Didn't find class "droid.frame.class1dex.ViewAction" on path: DexPathList[[zip file "/data/app/com.example.xml2view-2/base.apk"],nativeLibraryDirectories=[/data/app/com.example.xml2view-2/lib/arm64, /vendor/lib64, /system/lib64]]
+01-18 00:00:19.794: W/System.err(6284): 		at dalvik.system.BaseDexClassLoader.findClass(BaseDexClassLoader.java:56)
+01-18 00:00:19.794: W/System.err(6284): 		at java.lang.ClassLoader.loadClass(ClassLoader.java:511)
+01-18 00:00:19.794: W/System.err(6284): 		at java.lang.ClassLoader.loadClass(ClassLoader.java:504)
+01-18 00:00:19.794: W/System.err(6284): 		... 15 more
+01-18 00:00:19.794: W/System.err(6284): 		Suppressed: java.lang.ClassNotFoundException: droid.frame.class1dex.ViewAction
+01-18 00:00:19.794: W/System.err(6284): 			at java.lang.Class.classForName(Native Method)
+01-18 00:00:19.794: W/System.err(6284): 			at java.lang.BootClassLoader.findClass(ClassLoader.java:781)
+01-18 00:00:19.794: W/System.err(6284): 			at java.lang.BootClassLoader.loadClass(ClassLoader.java:841)
+01-18 00:00:19.794: W/System.err(6284): 			at java.lang.ClassLoader.loadClass(ClassLoader.java:504)
+01-18 00:00:19.794: W/System.err(6284): 			... 16 more
+01-18 00:00:19.794: W/System.err(6284): 		Caused by: java.lang.NoClassDefFoundError: Class not found using the boot class loader; no stack trace available
